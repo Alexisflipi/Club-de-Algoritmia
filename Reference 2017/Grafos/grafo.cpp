@@ -4,6 +4,8 @@ using namespace std;
 typedef vector<int> vi;
 const int INF (1<<25);
 
+//Algoritmo Floyd-Warshall
+
 struct G{
   int n;
   int cont;
