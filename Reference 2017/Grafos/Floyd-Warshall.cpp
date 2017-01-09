@@ -8,12 +8,11 @@ const int INF (1<<25);
 
 struct G{
   int n;
-  int cont;
   vector<vi> m;
   vector<vi > p;
   vi u;
-
-  G(int N) : n(N), m(N, vi(N, INF)), p(N, vector<int>(N, 0)) {}
+  //Si es transitive closure, cambiar INF por 0 en la matriz m
+  G(int N) : n(N), m(N, vi(N, 0)), p(N, vector<int>(N, 0)) {}
 
   void conect(int a, int b, int costo){
     m[a][b] = costo;
@@ -35,18 +34,22 @@ struct G{
             p[i][j] = p[k][j];
           }
   }
+
   void path(int i, int j){
     if (i != j) path(i, p[i][j]);
     u.push_back(j);
   }
+
   int query(int a, int b){
     return m[a][b];
   }
+
   vi printpath(int a, int b){
     u.clear();
     path(a, b);
     return u;
   }
+
   void transitive_closure(){
     //La matriz se llena con 0 en vez de INF:
     //si u -> v entonces m[u][v] = 1 -> costo
@@ -94,6 +97,7 @@ struct G{
   }
   //Componentes fuertemente conexas con transitive closure
   map<int, vi> SCC(){
+    int cont = 0;
     transitive_closure();
     vector<bool> vis(n);
     map<int, vi> ans;
@@ -104,7 +108,7 @@ struct G{
       for (int j = 0; j < n; j++){
         if (i == j || vis[j]) continue;
         if (m[i][j] && m[j][i])
-          ans[cont].push_back(j), vis[j] = true;
+          ans[cont - 1].push_back(j), vis[j] = true;
       }
     }
     return ans;
