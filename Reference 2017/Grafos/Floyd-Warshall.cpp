@@ -12,7 +12,7 @@ struct G{
   vector<vi > p;
   vi u;
   //Si es transitive closure, cambiar INF por 0 en la matriz m
-  G(int N) : n(N), m(N, vi(N, 0)), p(N, vector<int>(N, 0)) {}
+  G(int N) : n(N), m(N, vi(N, INF)), p(N, vector<int>(N, 0)) {}
 
   void conect(int a, int b, int costo){
     m[a][b] = costo;
