@@ -4,7 +4,7 @@ using namespace std;
 typedef vector<int> vi;
 const int INF (1<<25);
 
-//Algoritmo Floyd-Warshall
+//Algoritmo Floyd-Warshall : O(V^3)
 
 struct G{
   int n;
@@ -39,17 +39,17 @@ struct G{
     if (i != j) path(i, p[i][j]);
     u.push_back(j);
   }
-
+  //Costo mínimi entre nodo a y b
   int query(int a, int b){
     return m[a][b];
   }
-
+  //Imprimie camino de a --> b
   vi printpath(int a, int b){
     u.clear();
     path(a, b);
     return u;
   }
-
+  //Checa si dos nodos están directamente conectados
   void transitive_closure(){
     //La matriz se llena con 0 en vez de INF:
     //si u -> v entonces m[u][v] = 1 -> costo
@@ -70,6 +70,7 @@ struct G{
           m[i][j] = min(m[i][j], max(m[i][k], m[k][j]));
 
   }
+  //Checa si existe un ciclo
   bool cycle(){
     //La diagonal de la matriz m se llena con INF y no con cero
     //Se corre Floyd-Warshall normalmente
@@ -78,6 +79,7 @@ struct G{
         return true;
     return false;
   }
+  //Checa si existe un ciclo negativo
   bool negative_cycle(){
     //La diagonal de la matriz m se llena con INF y no con cero
     //Se corre Floyd-Warshall normalmente
@@ -86,6 +88,7 @@ struct G{
         return true;
     return false;
   }
+  //Encuentra el ciclo con menor costo
   int cheapest_cycle(){
     //La diagonal de la matriz m se llena con INF y no con cero
     //Se corre Floyd-Warshall normalmente
