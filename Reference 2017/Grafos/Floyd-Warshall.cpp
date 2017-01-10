@@ -39,7 +39,7 @@ struct G{
     if (i != j) path(i, p[i][j]);
     u.push_back(j);
   }
-  //Costo mínimi entre nodo a y b
+  //Costo mínimo entre nodo a y b
   int query(int a, int b){
     return m[a][b];
   }
