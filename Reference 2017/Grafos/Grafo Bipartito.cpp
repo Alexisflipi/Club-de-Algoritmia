@@ -49,3 +49,26 @@ struct Bipartito {
     return pares; // Cardinalidad = pares.size()
   }
 };
+
+int main() {
+  ios::sync_with_stdio(0); cin.tie(0);
+  int n, k; cin >> n >> k;
+  Bipartito B(2 * n + 5);
+  for (int i = 0; i < k; i++) {
+    int x, y; cin >> x >> y;
+    int a  = 2 * x - 1;
+    int b = 2 * y;
+    B.AgregarArista(a - 1, b - 1);
+    B.AgregarIzq(a - 1);
+    B.AgregarDer(b - 1);
+  }
+  vector<Par> ans = B.MaxEmparejamiento();
+  cout << ans.size() << "\n";
+}
+/*
+3 4
+1 1
+1 3
+2 2
+3 2
+*/
