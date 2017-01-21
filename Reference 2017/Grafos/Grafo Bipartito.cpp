@@ -4,6 +4,11 @@ using namespace std;
 typedef vector<int> vi;
 typedef pair<int, int> ii;
 
+//Max Cardinality Bipartite Match : MCBM
+//Nodos indexados 0 ... n - 1
+//Lado izq: Nodos pares
+//Lado derecho: Nodos impares
+
 struct Bipartito {
   int n; vi p;
   vector<vi> egde;
