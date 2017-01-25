@@ -13,6 +13,14 @@ lld knight_distance(lld x1, lld y1, lld x2, lld y2) {
     if (d % 2 != (x + y) % 2) d++;
     return d;
 }
+//Bitmask: Da todas las posibles configuraciones
+//Complejidad: 2^n
+int bitmask(int tam) {
+  for (int i = 0; i < (1<<tam) - 1; i++)
+    for (int j = 0; j < tam; j++)
+      if (i & (1<<j))
+        //El j ésimo bit esta prendido
+}
 
 int main() {
   return 0;
