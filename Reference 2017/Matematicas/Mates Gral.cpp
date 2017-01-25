@@ -16,6 +16,7 @@ lld knight_distance(lld x1, lld y1, lld x2, lld y2) {
 //Bitmask: Da todas las posibles configuraciones
 //Complejidad: 2^n
 int bitmask(int tam) {
+  //tam es el tamaño de la máscara de bits
   for (int i = 0; i < (1<<tam) - 1; i++)
     for (int j = 0; j < tam; j++)
       if (i & (1<<j))
