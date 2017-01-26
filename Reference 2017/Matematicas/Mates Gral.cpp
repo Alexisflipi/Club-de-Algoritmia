@@ -22,7 +22,9 @@ int bitmask(int tam) {
       if (i & (1<<j))
         //El j ésimo bit esta prendido
 }
-
+//p = (N - 1)/2 -> suma de cuadrados de 1 a N:
+//Suma de cuadrados pares  : 2 * p * (p + 1) * (2 * p + 1) / 3
+//suma de cuadrados impares: (p + 1) * (2 * p + 1) * (2 * p + 3) / 3
 int main() {
   return 0;
 }
