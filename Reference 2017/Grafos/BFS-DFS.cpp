@@ -19,7 +19,8 @@ struct G{
     ady[a].push_back(b);
     ady[b].push_back(a);
   }
-  //Imprime el camino de cualquier nodo v al nodo s -> printPath(v, s)
+  //Imprime el camino de cualquier 
+  //nodo v al nodo s -> printPath(v, s)
   void print(int u, int s) {
     if (u == s) { path.push_back(s); return; }
     print(p[u], s); 
@@ -38,8 +39,10 @@ struct G{
     while (!Q.empty()) {
       int u = Q.front(); Q.pop();
       for (auto &v : ady[u])
-        if (dist[v] == INF)
-          dist[v] = dist[u] + 1, Q.push(v), p[v] = u;
+        if (dist[v] == INF) {
+          dist[v] = dist[u] + 1;
+          Q.push(v), p[v] = u;
+        }
     }
     return dist;
   } 
