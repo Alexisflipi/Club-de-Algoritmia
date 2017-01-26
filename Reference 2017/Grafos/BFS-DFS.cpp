@@ -11,17 +11,22 @@ int mx[] = {-1, 0, 1, 0};
 int my[] = {0, -1, 0, 1};
 
 struct G{
-  int n;
-  int m;
-  vector<vi> ady;
-  vector<vi> matrix;
-  vi visit;
-  G(int N, int M) : n(N), ady(N), visit(N), m(M), matrix(N, vi(M, 0)) {}
+  int n, m;
+  vector<vi> ady, matrix;
+  vi path, p, visit;
+
+  G(int N, int M) : n(N), ady(N), visit(N), m(M), matrix(N, vi(M, 0)), p(N) {}
 
   void connect(int a, int b) {
     ady[a].push_back(b);
     ady[b].push_back(a);
     //matrix[a][b] = 1 solo  bfs2D o matrix de adyacencia
+  }
+  //Imprime el camino de cualquier nodo v al nodo s -> printPath(v, s)
+  void printPath(int u, int s) {
+    if (u == s) { path.push_back(s); return; }
+    printPath(p[u], s); 
+    path.push_back(u);
   }
 
   vi bfs(int s) {
@@ -31,10 +36,10 @@ struct G{
       int u = Q.front(); Q.pop();
       for (auto &v : ady[u])
         if (dist[v] == INF)
-          dist[v] = dist[u] + 1, Q.push(v);
+          dist[v] = dist[u] + 1, Q.push(v), p[v] = u;
     }
     return dist;
-  }
+  } 
   
   int bfs2D(ii s, ii t) {
     vector<vi> dist(n, vi(m, INF));
