@@ -7,26 +7,29 @@ typedef pair<int, int> ii;
 typedef vector<int> vi;
 
 const int INF = (1 << 30);
-int mx[] = {-1, 0, 1, 0};
-int my[] = {0, -1, 0, 1};
 
 struct G{
-  int n, m;
-  vector<vi> ady, matrix;
+  int n;
+  vector<vi> ady;
   vi path, p, visit;
 
-  G(int N, int M) : n(N), ady(N), visit(N), m(M), matrix(N, vi(M, 0)), p(N) {}
+  G(int N) : n(N), ady(N), visit(N), p(N) {}
 
   void connect(int a, int b) {
     ady[a].push_back(b);
     ady[b].push_back(a);
-    //matrix[a][b] = 1 solo  bfs2D o matrix de adyacencia
   }
   //Imprime el camino de cualquier nodo v al nodo s -> printPath(v, s)
-  void printPath(int u, int s) {
+  void print(int u, int s) {
     if (u == s) { path.push_back(s); return; }
-    printPath(p[u], s); 
+    print(p[u], s); 
     path.push_back(u);
+  }
+
+  vi printPath(int u, int s) {
+    path.clear();
+    print(u, s);
+    return path;
   }
 
   vi bfs(int s) {
@@ -41,26 +44,6 @@ struct G{
     return dist;
   } 
   
-  int bfs2D(ii s, ii t) {
-    vector<vi> dist(n, vi(m, INF));
-    queue<ii> Q;
-    Q.push(s); dist[s.fst][s.snd] = 0;
-    while (!Q.empty()) {
-      ii u = Q.front(); Q.pop();
-      for (int i = 0; i < 4; i++) {
-        int x = u.fst + mx[i];
-        int y = u.snd + my[i];
-        if (x < 0 || x >= n || y < 0 || y >= m) continue;
-        if (matrix[x][y] == 1) continue;
-        if (dist[x][y] == INF) {
-          dist[x][y] = dist[u.fst][u.snd] + 1;
-          Q.push(ii(x, y));
-        }
-      }
-    }
-    return dist[t.fst][t.snd];
-  }
-
   void dfs(int u) {
     visit[u] = 1;
     for (auto &v : ady[u])
@@ -71,7 +54,7 @@ struct G{
 
 int main() {
   int V;
-  G graph(V, 0);
+  G graph(V);
   for (int i = 0; i < V; i++)
     if (!graph.visit[i])
       graph.dfs(i);
