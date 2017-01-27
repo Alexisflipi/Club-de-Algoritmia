@@ -37,7 +37,7 @@ struct G{
     print(u, s);
     return path;
   }
-  //Si es multisource, agrgar al principio de Q
+  //Si es multisource, agregar al principio de Q
   int bfs2D(ii s, ii t) {
     vector<vi> dist(n, vi(m, INF));
     queue<ii> Q;
