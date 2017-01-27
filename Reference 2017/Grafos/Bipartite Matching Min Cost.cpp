@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Fuente: club de algoritmia ESCOM
+// Autor: Ethan Jiménez
 typedef long long lld;
 typedef lld Costo;
 typedef vector<lld> Lista;
