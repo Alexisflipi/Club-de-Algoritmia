@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Fuente: club de algoritmia ESCOM
+// Autor: Ethan Jiménez
+
 const int INF = (1 << 30);
 
 // Segment Tree version dinamica. Para generar el
