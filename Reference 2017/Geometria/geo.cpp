@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Fuente: club de algoritmia ESCOM
+// Autor: Ethan Jiménez
+
 // Definiciones iniciales.
 typedef long long Long;
 
