@@ -75,10 +75,9 @@ int built(vi t, vector<vi> e, int k) {
   int mini = INF;
   for (auto it : source) {
     vi ans = graph.Dijkstra(it);
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
       if (m[i][k])
         mini = min(mini, ans[mapeo[ii(i, k)]]);
-    }
   }
   return mini;
 }
