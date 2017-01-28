@@ -56,11 +56,11 @@ struct G{
   //y la desigualdad de relajacion
   vi Dijkstra_lineal(int s) {
     //El vector ts contiene el orden topológico
-    vi dist(n, -INF);
+    vi dist(n, INF);
     dist[s] = 0;
     for (auto &u : ts)
       for (auto &v : ady[u])
-        if (dist[u] + v.snd > dist[v.fst])
+        if (dist[u] + v.snd < dist[v.fst])
           dist[v.fst] = dist[u] + v.snd, p[v.fst] = u;
     return dist;
   }
