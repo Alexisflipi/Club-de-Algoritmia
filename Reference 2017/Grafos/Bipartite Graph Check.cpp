@@ -26,8 +26,7 @@ struct G{
   bool isbipartite() {
     bool ans = 1;
     for (int i = 0; i < n; i++)
-      if (!visit[i]) 
-        ans &= dfs(i, 0);
+      if (!visit[i]) ans &= dfs(i, 0);
     return ans;
   }
 };
