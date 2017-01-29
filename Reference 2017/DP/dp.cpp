@@ -136,6 +136,29 @@ int tsp(int pos, int mask){
   return memo[pos][mask] = ans;
 }
 
+//Basic Edit Distance
+//Dado dos strings a y b
+//Determinar la mínima distancia
+//al realizar las operaciones:
+//*Insertion
+//*Deletion
+//*Substitution
+//Time complexity: O(|a| * |b|)
+int EditDistance(string a, string b) {
+  int n = a.size(), m = b.size(), edit = 1;
+  vector<vi> dist(n + 1, vi(m + 1, 0));
+  for (int i = 0; i <= n; i++) dist[i][0] = i;
+  for (int j = 0; j <= m; j++) dist[0][j] = j;
+
+  for (int i = 1; i <= n; i++)
+    for (int j = 1; j <= m; j++){
+      (a[i - 1] == b[j - 1]) ? edit = 0 : edit = 1;
+      int r = min(dist[i - 1][j] + 1, dist[i][j - 1] + 1);
+      dist[i][j] = min(dist[i - 1][j - 1] + edit, r);
+    }
+  return dist[n][m];
+}
+
 int main(){
   memset(memo, -1, sizeof memo);
   memset(me, -1, sizeof me);
