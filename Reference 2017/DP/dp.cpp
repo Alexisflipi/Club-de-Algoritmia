@@ -27,8 +27,8 @@ int bino(int n, int k){
 string back(vector<vi> &c, string x, string y, int i, int j) {
   if (i == 0 || j == 0)
     return "";
-  if (x[i] == y[j])
-    return back(c, x, y, i - 1, j - 1) + x[i];
+  if (x[i - 1] == y[j - 1])
+    return back(c, x, y, i - 1, j - 1) + x[i - 1];
   if (c[i][j - 1] > c[i - 1][j])
     return back(c, x, y, i, j - 1);
   else
@@ -49,14 +49,7 @@ string LCS(string x, string y){
   }
   //Longitud del LCS = c[l_x][l_y]
   //Recosntrucción del LCS mediante backtracking
-  string rec = back(c, x, y, x.size() - 1, y.size() - 1);
-  for (int i = 1; i <= l_x; i++)
-    for (int j = 1; j <= l_y; j++)
-      if (c[i][j] == 1) {
-        rec = x[i - 1] + rec;
-        return rec;
-      }
-  return rec;
+  return back(c, x, y, x.size(), y.size());
 } 
 
 //Longest increasing subsequence
