@@ -23,21 +23,41 @@ int bino(int n, int k){
 //Longest Common Subsequence
 //Complejidad: O(|x| * |y|)
 //Memoria: (|x| + 1)(|y| + 1)
-int LCS(string x, string y){
-  int l_x = x.length();
-  int l_y = y.length();
-  vector<vi> c(l_x + 1, vi(l_y + 1));
-  
-  for (int i = 1; i <= l_x; i++){
-    for (int j = 1; j <= l_y; j++){
-      if (x[i - 1] == y[j - 1])
-        c[i][j] = c[i - 1][j - 1] + 1;
-      else
-        c[i][j] = max(c[i - 1][j], c[i][j - 1]);
-    }
-  }
-  return c[l_x][l_y];
+//Se anexa reconstrucción:
+string back(vector<vi> &c, string x, string y, int i, int j) {
+  if (i == 0 || j == 0)
+    return "";
+  if (x[i] == y[j])
+    return back(c, x, y, i - 1, j - 1) + x[i];
+  if (c[i][j - 1] > c[i - 1][j])
+    return back(c, x, y, i, j - 1);
+  else
+    return back(c, x, y, i - 1, j);
 }
+
+string LCS(string x, string y){  
+  int l_x = x.length();  
+  int l_y = y.length();  
+  vector<vi> c(l_x + 1, vi(l_y + 1));    
+  for (int i = 1; i <= l_x; i++){    
+    for (int j = 1; j <= l_y; j++){     
+      if (x[i - 1] == y[j - 1])      
+        c[i][j] = c[i - 1][j - 1] + 1;     
+      else      
+        c[i][j] = max(c[i - 1][j], c[i][j - 1]);   
+    }  
+  }
+  //Longitud del LCS = c[l_x][l_y]
+  //Recosntrucción del LCS mediante backtracking
+  string rec = back(c, x, y, x.size() - 1, y.size() - 1);
+  for (int i = 1; i <= l_x; i++)
+    for (int j = 1; j <= l_y; j++)
+      if (c[i][j] == 1) {
+        rec = x[i - 1] + rec;
+        return rec;
+      }
+  return rec;
+} 
 
 //Longest increasing subsequence
 //Complejidad: O(n^2)
