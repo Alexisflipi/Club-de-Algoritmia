@@ -31,7 +31,9 @@ struct G{
     printPath(u, s);
     return path;
   }
-
+  //Sinlge-Source shortest path (SSSP)
+  //Algoritmo Dijkstra
+  //Time complexity: O(E * log V)
   vi Dijkstra(int s) {
     vi dist(n, INF);
     priority_queue<ii, vector<ii>, greater<ii>> Q;
