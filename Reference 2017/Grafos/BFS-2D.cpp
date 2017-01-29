@@ -10,6 +10,9 @@ typedef vector<ii> vii;
 const int INF = (1 << 30);
 int mx[] = {-1, 0, 1, 0};
 int my[] = {0, -1, 0, 1};
+//knight moves:
+//int mx[] = {-2, -1, 1, 2, 2, 1, -1, -2};
+//int my[] = {-1, -2, -2, -1, 1, 2, 2, 1};
 
 struct G{
   int n, m;
