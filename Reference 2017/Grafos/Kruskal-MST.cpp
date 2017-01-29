@@ -35,7 +35,7 @@ struct K{
         UF.Union(a, b);
       }
     }
-    //Si se requiere saber si existe un MST:
+    //Existencia de MST:
     return (UF.numSet() != 1) ? -1 : cost; // costo del MST
   }
 };
