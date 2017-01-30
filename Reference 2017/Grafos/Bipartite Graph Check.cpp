@@ -32,5 +32,6 @@ struct G{
 };
 
 int main() {
+  
   return 0;
 }
