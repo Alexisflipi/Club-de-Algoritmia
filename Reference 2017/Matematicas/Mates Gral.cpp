@@ -3,6 +3,22 @@ using namespace std;
 
 typedef long long lld;
 
+//Esta funcion permite retornar
+//El número máximo de caballos que
+//pueden ser colocados en un tablero
+//de ajedrez de tamaño n x m sin que
+//choquen con sus movimientos
+
+int solve_knight(int n, int m){
+  if(n > m) swap(n,m);
+  if(n == 1) return m;
+  if(n == 2) return m / 4 * 4 + (m % 4 == 1? 2 : (m % 4 >= 2? 4 : 0));
+  return (n*m + 1) / 2;
+}
+
+//Obtiene la distancia mínima con coordenadas 
+//de movimientos de una knight a otro
+//Ojo, el tablero no esta delimitado
 lld knight_distance(lld x1, lld y1, lld x2, lld y2) {
   lld x = abs(x2 - x1), y = abs(y2 - y1);    
   if (x > y) swap(x, y);
