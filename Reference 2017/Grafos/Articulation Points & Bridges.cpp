@@ -4,7 +4,10 @@ using namespace std;
 typedef pair<int, int> ii;
 typedef vector<ii> vii;
 typedef vector<int> vi;
-
+// O(V + E)
+//Si se requiere saber cuantas componentes 
+//conexas hay al quitar un art point solo 
+//cambiar a art[u]++ y agregar a todo 1 al final
 struct G {
   vector<vi> ady;
   vi num, parent, low, art;
@@ -13,7 +16,7 @@ struct G {
   G(int n) : N(n), num(n, -1), ady(n, vi()), 
   parent(n), low(n), art(n) {}
 
-  void add(int a, int b) {
+  void connect(int a, int b) {
     ady[a].push_back(b);
     ady[b].push_back(a);
   }
@@ -25,17 +28,11 @@ struct G {
       if (num[v] == -1) {
         parent[v] = u;
         if (u == root) rootChildren++; apb(v);
-        // for articulation point
-        //Si se requiere saber cuantas componentes 
-        //conexas hay al quitar un art point solo 
-        //cambiar a art[u]++ y agregar a todo 1 al final
         if (low[v] >= num[u]) art[u] = 1; 
-        
         //if (low[v] > num[u]) // for bridge
           //bridge.push_back(ii(u, v));
         low[u] = min(low[u], low[v]);
-      } else 
-        if (v != parent[u])
+      } else if (v != parent[u])
           low[u] = min(low[u], num[v]);
     }
   }
