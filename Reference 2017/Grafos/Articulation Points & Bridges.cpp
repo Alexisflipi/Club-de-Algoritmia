@@ -26,9 +26,9 @@ struct G {
         parent[v] = u;
         if (u == root) rootChildren++; apb(v);
         // for articulation point
-        //Si se requiere saber cuantas componentes conexas hay
-        //al quitar un art point solo cambiar a art[u]++ y se inicializa 
-        //el vector de art con valor de 1
+        //Si se requiere saber cuantas componentes 
+        //conexas hay al quitar un art point solo 
+        //cambiar a art[u]++ y agregar a todo 1 al final
         if (low[v] >= num[u]) art[u] = 1; 
         
         //if (low[v] > num[u]) // for bridge
