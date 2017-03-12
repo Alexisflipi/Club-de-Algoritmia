@@ -11,6 +11,7 @@ typedef pair<int, int> ii;
 //Nodos indexados 0 ... n - 1
 //Lado izq: Nodos pares
 //Lado derecho: Nodos impares
+//Complejidad: O(V * E)
 
 const int S = -1;
 
