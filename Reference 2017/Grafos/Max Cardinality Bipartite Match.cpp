@@ -1,10 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Fuente: club de algoritmia ESCOM
-// Autor: Ethan Jiménez
+// Autor: Victor Noriega
 
 typedef vector<int> vi;
+typedef vector<bool> vb;
 typedef pair<int, int> ii;
 
 //Max Cardinality Bipartite Match : MCBM
@@ -12,63 +12,76 @@ typedef pair<int, int> ii;
 //Lado izq: Nodos pares
 //Lado derecho: Nodos impares
 
-struct Bipartito {
-  int n; vi p;
-  vector<vi> egde;
-  vector<bool> set, visit;
+const int S = -1;
 
-  Bipartito(int N) : set(N), p(N),
-      visit(N), egde(N), n(N) {}
+struct Bipartite{
+  vb visited, side;
+  vector<vi> edges;
+  vi couple;
+  queue<int> path;
+  int n;
 
-  void AgregarArista(int u, int v) {
-    egde[u].push_back(v);
-    egde[v].push_back(u);
+  Bipartite(int N):
+    n(N), edges(N, vi()), 
+    couple(N, S), side(N), visited(N) {}
+  
+  void addEdge(const int u, const int v){
+    edges[u].push_back(v),
+    edges[v].push_back(u);
   }
 
-  void AgregarIzq(int u) { set[u] = true; }
-  void AgregarDer(int u) { set[u] = false; }
-
-  int CaminoIncremental(int u) {
-    visit[u] = true;
-    for (int i = 0; i < egde[u].size(); ++i)
-      if (p[egde[u][i]] == -1) 
-        return p[egde[u][i]] = u;
-    for (int i = 0; i < egde[u].size(); ++i) {
-      int v = egde[u][i];
-      if (visit[p[v]]) continue;
-      if (CaminoIncremental(p[v]) != -1)
-        return p[v] = u;
-    }
-    return -1;
+  void setLeft(const int u){
+    side[u] = true;
   }
 
-  vector<ii> MaxEmparejamiento() {
-    fill(p.begin(), p.end(), -1);
-    for (int i = 0; i < n; ++i) {
-      if (!set[i]) continue; CaminoIncremental(i);
-      fill(visit.begin(), visit.end(), false);
+  void setRight(const int v){
+    side[v] = false;
+  }
+
+  int augmentingPath(const int u){
+    visited[u] = true, path.push(u);
+    for(int v : edges[u])
+      if(couple[v] == S)
+        return couple[v] = u;
+    for(int v : edges[u]){
+      if(visited[couple[v]]) continue;
+      if(augmentingPath(couple[v]) != S)
+        return couple[v] = u;
     }
-    vector<ii> pares;
-    for (int i = 0; i < n; ++i)
-      if (!set[i] && p[i] != -1)
-        pares.push_back(ii(p[i], i));
-    return pares; // Cardinalidad = pares.size()
+    return S;
+  }
+
+  vector<ii> maximumMatching(){
+    vector<ii> match;
+    for(int u = 0; u < n; u++){
+      if(!side[u]) continue;
+      augmentingPath(u);
+      while(!path.empty())
+        visited[path.front()] = false,
+        path.pop();
+    }
+    int matching = 0;
+    for(int v = 0; v < n; v++)
+      if(!side[v] and couple[v] != S)
+        matching++, 
+        match.push_back(ii(couple[v], v));
+    return match;
   }
 };
-
+//COJ 1695
 int main() {
   ios::sync_with_stdio(0); cin.tie(0);
   int n, k; cin >> n >> k;
-  Bipartito B(2 * n + 5);
+  Bipartite B(2 * n + 5);
   for (int i = 0; i < k; i++) {
     int x, y; cin >> x >> y;
     int a  = 2 * x - 1;
     int b = 2 * y;
-    B.AgregarArista(a - 1, b - 1);
-    B.AgregarIzq(a - 1);
-    B.AgregarDer(b - 1);
+    B.addEdge(a - 1, b - 1);
+    B.setLeft(a - 1);
+    B.setRight(b - 1);
   }
-  vector<ii> ans = B.MaxEmparejamiento();
+  vector<ii> ans = B.maximumMatching();
   cout << ans.size() << "\n";
 }
 /*
