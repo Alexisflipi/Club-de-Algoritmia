@@ -128,6 +128,19 @@ int tsp(int pos, int mask){
   }
   return memo[pos][mask] = ans;
 }
+//Reconstruccion dp para tsp
+void re_dp(int pos, int mask) {
+  if (mask == (1 << n) - 1) return; // similar a los casos bases
+  for (int i = 0; i < n; i++) { // cual es el modelo optimo
+    if (mask & (1<<i) || pos == i) continue;
+    int r = dist[pos][i] + tsp(i, mask|(1<<i));
+    if (r == memo[pos][mask]) {
+        cout << dist[pos][i] << '\n';
+        re_dp(i, mask|(1<<i)); // recursar a este estado
+        break; // no es valido visitar otros estados
+    }
+  }
+}
 
 //Basic Edit Distance
 //Dado dos strings a y b
