@@ -5,7 +5,8 @@ typedef long long lld;
 typedef vector<lld> vi;
 
 // Fenwick Tree. Indices de 1 a n. 
-
+// Fuente: club de algoritmia ESCOM
+// Autor: Ethan Jiménez
 struct FenTree{
   vector<lld> tree;
   FenTree(lld n) : tree(n + 1) {}
@@ -46,23 +47,18 @@ int main(){
   ios::sync_with_stdio(0);
   cin.tie(0);
   lld N;
-
-  while (cin >> N and N){
-    vi num;
-    for (lld i = 0; i < N; i++) {
-      lld a;
-      cin >> a;
-      num.push_back(a);
-    }
-    vi mapeo = m(num);
-    //Contar mínimas inversiones o swap al ordenar un arreglo O(n*log n)
-    lld inv = 0;
-    FenTree BIT(N);
-    for (lld i = mapeo.size() - 1; i >= 0; i--) {
-      lld x = BIT.Query(mapeo[i]);
-      inv += x;
-      BIT.Act(mapeo[i], 1);
-    }
-    cout << inv << "\n";
+  vi num;
+  for (lld i = 0; i < N; i++) {
+    lld a; cin >> a; num.push_back(a);
   }
+  vi mapeo = m(num);
+  //Contar mínimas inversiones o swap al ordenar un arreglo O(n*log n)
+  lld inv = 0;
+  FenTree BIT(N);
+  for (lld i = mapeo.size() - 1; i >= 0; i--) {
+    lld x = BIT.Query(mapeo[i]);
+    inv += x;
+    BIT.Act(mapeo[i], 1);
+  }
+  cout << inv << "\n";
 }
