@@ -19,11 +19,11 @@ struct UnionFind{
     return (Find(i) == Find(j));
   }
   //Union, utiliza rango para un arbol corto y sea O(~1)
-  void Union(int i, int j) {
+  void Union(lli i, lli j) {
     int x = Find(i), y = Find(j);
     if (x == y) return; else sets--;
-    (r[x] > r[y]) ? p[y] = x, s[y] += s[x] 
-                  : p[x] = y, s[x] += s[y];
+    (r[x] > r[y]) ? p[y] = x, s[x] += s[y] 
+                  : p[x] = y, s[y] += s[x];
     if (r[x] == r[y]) r[y]++;
   }
   //Retorna el tamaño del conjunto del nodo i
