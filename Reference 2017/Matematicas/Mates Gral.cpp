@@ -41,6 +41,11 @@ int bitmask(int tam) {
 //p = (N - 1)/2 -> suma de cuadrados de 1 a N:
 //Suma de cuadrados pares  : 2 * p * (p + 1) * (2 * p + 1) / 3
 //suma de cuadrados impares: (p + 1) * (2 * p + 1) * (2 * p + 3) / 3
+
+//modulo de negativos
+lli mod(lli a, lli b) {
+	return (a >= 0) ? a % b : (b - abs(a % b)) % b;
+}
 int main() {
   return 0;
 }
