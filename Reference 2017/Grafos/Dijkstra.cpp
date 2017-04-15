@@ -66,6 +66,26 @@ struct G{
           dist[v.fst] = dist[u] + v.snd, p[v.fst] = u;
     return dist;
   }
+  //Sinlge-source min longest edge
+  vi Dijkstra_minimax(lli s) {
+    priority_queue<ii, vector<ii>, greater<ii>> Q;
+
+    vi leap(n, INF);
+    leap[s] = -INF;
+    
+    Q.push(ii(leap[s], s));
+
+    while (!Q.empty()) {
+      ii f = Q.top(); Q.pop();
+      lli d = f.fst, u = f.snd;
+      if (d == INF) break;
+      for (auto v : ady[u])
+        if (max(d, Dista[u][v.fst]) < leap[v.fst])
+          leap[v.fst] = max(d, Dista[u][v.fst]),
+          Q.push(ii(leap[v.fst], v.fst));
+    }
+    return leap;
+  }
 };
 
 int main() {
