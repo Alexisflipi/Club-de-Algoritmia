@@ -13,7 +13,7 @@ void criba_euler_phi(){
   for (int k = 1; k < MAX; k++)
     phi[k] = k;
   for (int i = 2; i < MAX; i++){
-    if (phi[i] = i)
+    if (phi[i] == i)
       for (int j = i; j < MAX; j += i){
         phi[j] /= i;
         phi[j] *= i - 1;
