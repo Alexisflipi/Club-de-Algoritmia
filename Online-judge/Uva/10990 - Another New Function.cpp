@@ -40,8 +40,7 @@ int dp(int n) {
 void pre() {
   memset(memo, -1, sizeof memo);
   forn(i, 1, MAX)
-    depth[i] = dp(i);
-  forn(i, 1, MAX)
+    depth[i] = dp(i),
     acu[i] = acu[i - 1] + depth[i];
 }
 
