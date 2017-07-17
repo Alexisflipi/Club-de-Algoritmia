@@ -17,7 +17,13 @@ vi PrimeFactors(lld n){
   if (n > 1) factors.push_back(F(n, 1));
   return factors;
 }
-
+//potencia del primo p en n!
+lld get_powers(lld n, lld p){
+    lld res = 0;
+    for (lld power = p; power <= n; power *= p )
+        res += n/power;
+    return res;
+}
 
 int main(){
   int N; cin >> N;
