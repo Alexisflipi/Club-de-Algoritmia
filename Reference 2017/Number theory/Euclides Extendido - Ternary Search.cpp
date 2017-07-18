@@ -6,13 +6,13 @@ typedef pair<lli, lli> ii;
 
 lli x, y, d;
 
+//Elige par x, y tal que |x|+|y| es minimo y x <= y
+
 void e_ext(lli a, lli b) {
   if (b == 0) {x = 1; y = 0; d = a; return; }
   e_ext(b, a % b);
-  lli x1 = y;
-  lli y1 = x - (a/b) * y;
-  x = x1;
-  y = y1;
+  x = x - (a/b) * y;
+  swap(x, y);
 }
 
 lli n1, c1;
