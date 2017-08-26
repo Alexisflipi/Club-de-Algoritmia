@@ -59,16 +59,13 @@ string LCS(string x, string y){
 int LIS(vi num){
   int n = num.size();
   vi lis(n, 1);
-  for (int i = 1; i < n; i++){
+  for (int i = 0; i < n; i++){
     for (int j = 0; j < i; j++){
       if (num[i] > num[j] && lis[i] < lis[j] + 1)
         lis[i] = lis[j] + 1;
     }
   }
-  for (int i = 0; i < n; i++)
-    cout << lis[i] << " ";
-  cout << endl;
-  return lis[n-1];
+  return *max_element(lis.begin(), lis.end());
 }
 //Coin Change
 //Complejidad: O(val * pos)
