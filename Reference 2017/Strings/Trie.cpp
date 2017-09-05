@@ -16,3 +16,23 @@ struct Trie{
   }
 };
 
+//Built Trie and search a string
+
+struct Trie{
+  bool flag;
+  map<char, Trie> ch;
+  
+  Trie() : flag(0) {}
+
+  void add(string &s, int idx) {
+    if (idx == s.size()) {flag = 1; return;}
+    ch[s[idx]].add(s, idx + 1);
+  }
+
+  bool search(string &s, int idx) {
+    if (idx == s.size()) return flag;
+    bool ans = ch[s[idx]].search(s, idx + 1);
+    return ans;
+  }
+};
+
