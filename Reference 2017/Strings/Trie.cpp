@@ -36,3 +36,21 @@ struct Trie{
   }
 };
 
+//Trie (more quick)
+
+struct Trie{
+  bool flag;
+  map<int, Trie*> ch;
+  Trie() : flag(0) {}
+
+  void add(string &s) {
+    Trie *cab = this;
+    forn(i, 0, s.size()) {
+      if (!cab -> ch.count(s[i] - 'a'))
+        cab -> ch[s[i] - 'a'] = new Trie();
+      cab = cab -> ch[s[i] - 'a'];
+    }
+    cab -> flag = 1;
+  }
+};
+
