@@ -28,3 +28,49 @@ struct G{
     }
   }
 };
+
+//Hash with updated (Fenwick Tree)
+
+const lli M = 104398831ll;
+const lli P = 15485863ll;
+
+struct FenTree{
+  vi tree;
+  lli MOD, B, N;
+  FenTree(lli n, lli m, lli b) : 
+  tree(n + 1), MOD(m), B(b), N(n) {}
+
+  void Act(lli i, lli v) {
+    while (i < tree.size())
+      tree[i] = (tree[i] + v) % MOD,
+      i += (i & -i);
+  }
+
+  lli Query(lli i) {
+    lli sum = 0;
+    while (i > 0)
+      sum = (sum + tree[i]) % MOD,
+      i -= (i & - i);
+    return sum;
+  }
+  lli Range(lli i, lli j) {
+    lli a = (Query(j) - Query(i - 1) + MOD) % MOD;
+    lli r = power(B, N - j, MOD);
+    lli b = power(r, MOD - 2, MOD);
+    return (a * b) % MOD;
+  }
+};
+
+int main() {
+  FenTree hash1(n, M, P);
+  forn(i, 1, n + 1) {
+      lli v = data[i - 1];
+      lli r = power(P, n - i, M);
+      lli q = hash1.Range(i, i);
+      hash1.Act(i, ((v - q + M) % M * r % M) % M);
+  }
+  cin >> l >> r;
+  lli f1 = hash1.Range(l, r);
+}
+
+
