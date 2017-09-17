@@ -31,6 +31,7 @@ struct Trie{
 
   bool search(string &s, int idx) {
     if (idx == s.size()) return flag;
+    if (!ch.count(s[idx])) return 0;
     bool ans = ch[s[idx]].search(s, idx + 1);
     return ans;
   }
