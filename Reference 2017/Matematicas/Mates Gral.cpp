@@ -49,3 +49,7 @@ lli mod(lli a, lli b) {
 int main() {
   return 0;
 }
+stringstream tmp;
+tmp << setprecision(6) << fixed << 5.2345345345;
+double new_val = stod(tmp.str());
+tmp.str(string()); 
