@@ -32,3 +32,18 @@ int Manacher(string s){
     end = start + maxL - 1;
     return end - start + 1;
 }
+//with hash
+int pal(const string &s) {
+    ll H = 0, R = 0;
+    ll B = 243; ll M = 1000000007;
+    ll BP = 1;
+    int mx = 0;
+    int n = s.size();
+    for(int i = 0; i < n; i++) {
+        H = (H * B + ll(s[i])) % M;
+        R = (R + BP * ll(s[i])) % M;
+        if(H == R) mx = i + 1;
+        BP = (BP * B) % M;
+    }
+    return mx;
+}
