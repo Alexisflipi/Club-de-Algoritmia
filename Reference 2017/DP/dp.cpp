@@ -161,6 +161,24 @@ int EditDistance(string a, string b) {
     }
   return dist[n][m];
 }
+//Longest no decreasing subsequence 
+//Time complexity: n * log (n)
+int LNDS(vi els) {
+  vi stack;
+  for (auto itr : els) {
+    int ans = -1;
+    for (int p = 20; p >= 0; p -= 1)
+      if (ans + (1 << p) < (int)stack.size()
+       && stack[ans + (1 << p)] <= itr)
+          ans += (1 << p);
+    ans++;
+    if (ans == (int)stack.size())
+      stack.push_back(itr);
+    else
+      stack[ans] = min(stack[ans], itr);
+  }
+  return (int)stack.size();
+}
 
 int main(){
   memset(memo, -1, sizeof memo);
