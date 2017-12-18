@@ -306,9 +306,9 @@ typedef vector<Punto> Poligono;
 
 // Saber si un punto esta en el perimetro de un poligono.
 bool PuntoEnPerimetro(const Punto& p, const Poligono& P) {
-  for (int i = 1; i < P.size(); ++i) {
-    Punto l = min(P[i - 1], P[i]);
-    Punto r = max(P[i - 1], P[i]);
+  for (int i = 0; i < P.size(); ++i) {
+    Punto l = P[i];
+    Punto r = P[(i + 1) % P.size()];
     if (ManoDerecha(l, r, p) == 0 &&
         !(p < l || r < p)) return true;
   }
@@ -327,18 +327,25 @@ int PuntoEnConvexo(const Punto& p, const Poligono& P) {
 
 // Punto en poligono concavo por ray casting.
 // En el perimetro = -1, Fuera = 0, Dentro = 1.
-int RayCasting(const Punto& p, const Poligono& P) {
-  if (PuntoEnPerimetro(p, P)) return -1;
-  Punto o = *min_element(P.begin(), P.end());
-  Linea rayo(p, Punto(o.x - M_PI, o.y - M_E));
-
-  int cruces = 0;
-  for (int i = 1; i < P.size(); ++i)
-    if (InterseccionSegmentos(rayo,
-        Linea(P[i - 1], P[i]))) ++cruces;
-  return cruces & 1;
+int RayCasting(const Punto& p, const Poligono& a) {
+  if (PuntoEnPerimetro(p, a)) return -1;
+  Poligono aux;
+  for (int i = a.size() - 1; i >= 0; i--)
+    aux.pb(a[i]);
+  if (PuntoEnPerimetro(p, aux)) return -1;
+  int c = 0;
+  // Even–odd rule
+  for (int i = 0; i < a.size(); i++){
+      int j = (i + 1) % a.size();
+      if ((p.y < a[i].y != p.y < a[j].y) && 
+        (p.x < a[i].x + (a[j].x-a[i].x) * (p.y-a[i].y)/(a[j].y-a[i].y))) c = !c;
+  }
+  return c;
 }
 
+
+
+//No sirve:
 // Punto en poligono concavo por angle summation.
 // En el perimetro = -1, Fuera = 0, Dentro = 1.
 int AngleSummation(const Punto& p, const Poligono& P) {
