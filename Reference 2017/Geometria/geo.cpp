@@ -268,6 +268,7 @@ Punto PuntoInterseccion(const Linea& l, const Linea& m) {
 // Obtener proyeccion del vector v en la recta r.
 Punto ProyeccionEnRecta(const Punto& v, const Linea& r) {
   Punto a = Trasladar(r.p, v), b = Trasladar(r.p, r.q);
+  if (Magnitud(b) == 0.0) return v;
   return Trasladar(Opuesto(r.p), Escalar(b,
       Dot(a, b) / pow(Magnitud(b), 2)));
 }
